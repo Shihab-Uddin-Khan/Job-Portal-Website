@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post a Job</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="images/logo.png" alt="Job Portal Logo" style="height: 80px;" />
+      <h1 style="margin: 0; font-size: 2.5rem;">Post a Job</h1>
+    </div>
+    <a href="index.html" style="color: white;">← Back to Home</a>
+  </nav>
+
+  <main style="max-width: 600px; margin: 20px auto;">
+    <form id="addJobForm" class="job-card">
+      <h2>Add New Job</h2>
+
+      <label for="title">Job Title:</label>
+      <input type="text" id="title" required />
+
+      <label for="company">Company:</label>
+      <input type="text" id="company" required />
+
+      <label for="skill">Skill Required:</label>
+      <input type="text" id="skill" required />
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" required />
+
+      <button type="submit">Post Job</button>
+    </form>
+    <p id="successMsg" style="color: green; text-align: center;"></p>
+  </main>
+
+  <script src="js/add-job.js"></script>
+</body>
+</html>

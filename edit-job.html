@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Job</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="images/logo.png" alt="Job Portal Logo" style="height: 80px;" />
+      <h1 style="margin: 0; font-size: 2.5rem;">Edit Jobs</h1>
+    </div>
+    <a href="my-jobs.html" style="color: white;">← Back to My Jobs</a>
+  </nav>
+
+  <main style="max-width: 600px; margin: 20px auto;">
+    <form id="editJobForm" class="job-card">
+      <label for="title">Job Title:</label>
+      <input type="text" id="title" required />
+
+      <label for="company">Company:</label>
+      <input type="text" id="company" required />
+
+      <label for="skill">Skill Required:</label>
+      <input type="text" id="skill" required />
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" required />
+
+      <button type="submit">Update Job</button>
+    </form>
+    <p id="message" style="text-align:center; color:green;"></p>
+  </main>
+
+  <script>
+    const editId = parseInt(localStorage.getItem("editJobId"));
+    const customJobs = JSON.parse(localStorage.getItem("customJobs")) || [];
+    const job = customJobs.find(j => j.id === editId);
+
+    if (!job) {
+      document.body.innerHTML = "<p>⚠️ Job not found or already deleted.</p>";
+    } else {
+      // Fill form
+      document.getElementById("title").value = job.title;
+      document.getElementById("company").value = job.company;
+      document.getElementById("skill").value = job.skill;
+      document.getElementById("location").value = job.location;
+
+      // Handle form submit
+      document.getElementById("editJobForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        job.title = document.getElementById("title").value.trim();
+        job.company = document.getElementById("company").value.trim();
+        job.skill = document.getElementById("skill").value.trim();
+        job.location = document.getElementById("location").value.trim();
+
+        const updatedJobs = customJobs.map(j => j.id === editId ? job : j);
+        localStorage.setItem("customJobs", JSON.stringify(updatedJobs));
+        
+        document.getElementById("message").textContent = "✅ Job updated successfully!";
+        setTimeout(() => {
+          window.location.href = "my-jobs.html";
+        }, 1000);
+      });
+    }
+  </script>
+</body>
+</html>

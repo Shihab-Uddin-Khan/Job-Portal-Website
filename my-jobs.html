@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Posted Jobs</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="images/logo.png" alt="Job Portal Logo" style="height: 80px;" />
+      <h1 style="margin: 0; font-size: 2.5rem;">My jobs</h1>
+    </div>
+    <a href="index.html" style="color: white;">← Back to Home</a>
+  </nav>
+
+  <main id="myJobsList" style="padding: 20px;">
+    <!-- User-posted jobs will appear here -->
+  </main>
+
+  <script>
+    function getCustomJobs() {
+      return JSON.parse(localStorage.getItem("customJobs")) || [];
+    }
+
+    function saveCustomJobs(jobs) {
+      localStorage.setItem("customJobs", JSON.stringify(jobs));
+    }
+
+    function renderMyJobs() {
+      const container = document.getElementById("myJobsList");
+      const jobs = getCustomJobs();
+      container.innerHTML = "";
+
+      if (jobs.length === 0) {
+        container.innerHTML = "<p>You haven’t posted any jobs yet.</p>";
+        return;
+      }
+
+      jobs.forEach((job, index) => {
+        const jobCard = document.createElement("div");
+        jobCard.className = "job-card";
+        jobCard.innerHTML = `
+          <h3>${job.title}</h3>
+          <p><strong>Company:</strong> ${job.company}</p>
+          <p><strong>Skill:</strong> ${job.skill}</p>
+          <p><strong>Location:</strong> ${job.location}</p>
+          <button onclick="editJob(${job.id})">Edit</button>
+          <button onclick="deleteJob(${job.id})" style="background-color: crimson;">Delete</button>
+        `;
+        container.appendChild(jobCard);
+      });
+    }
+
+    function editJob(id) {
+      localStorage.setItem("editJobId", id);
+      window.location.href = "edit-job.html";
+    }
+
+    function deleteJob(id) {
+      const jobs = getCustomJobs().filter(job => job.id !== id);
+      saveCustomJobs(jobs);
+      renderMyJobs();
+    }
+
+    document.addEventListener("DOMContentLoaded", renderMyJobs);
+  </script>
+</body>
+</html>
