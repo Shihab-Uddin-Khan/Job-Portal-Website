@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Applications</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <nav>
+    <img src="images/logo.png" alt="Job Portal Logo" style="height: 80px;" />
+    <h1>Submitted Applications</h1>
+    <a href="/index.html" style="color: white">← Back to Home</a>
+  </nav>
+
+  <main style="max-width: 900px; margin: 20px auto;">
+    <% if (applications.length === 0) { %>
+      <p>No applications yet.</p>
+    <% } else { %>
+      <% applications.forEach((app, index) => { 
+           const resumeFile = app.resume.startsWith("uploads") 
+             ? app.resume.replace(/^uploads[\\/]/, "").replace(/\\/g, "/") 
+             : app.resume;
+      %>
+        <div class="job-card">
+          <p><strong>#<%= index + 1 %></strong></p>
+          <p><strong>Name:</strong> <%= app.name %></p>
+          <p><strong>Email:</strong> <%= app.email %></p>
+          <p><strong>Message:</strong> <%= app.message %></p>
+          <p><strong>Resume:</strong> 
+            <a href="/uploads/<%= resumeFile %>" target="_blank">Download</a>
+          </p>
+          <p><em>Submitted At:</em> <%= new Date(app.submittedAt).toLocaleString() %></p>
+        </div>
+      <% }); %>
+    <% } %>
+  </main>
+</body>
+</html>

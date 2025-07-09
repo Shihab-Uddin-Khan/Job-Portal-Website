@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saved Jobs</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="images/logo.png" alt="Job Portal Logo" style="height: 80px;" />
+      <h1 style="margin: 0; font-size: 2.5rem;">Saved Jobs</h1>
+    </div>
+    <a href="index.html" style="color: white;">← Back to Home</a>
+  </nav>
+
+  <main id="savedJobsList" style="padding: 20px;">
+    <!-- Saved jobs will appear here -->
+  </main>
+
+  <script src="js/jobs-data.js"></script>
+  <script>
+    const savedJobIds = JSON.parse(localStorage.getItem("savedJobs")) || [];
+    const savedJobList = document.getElementById("savedJobsList");
+  
+    //Combine default + custom jobs
+    function getAllJobs() {
+      const customJobs = JSON.parse(localStorage.getItem("customJobs")) || [];
+      return [...jobs, ...customJobs]; // jobs comes from jobs-data.js
+    }
+  
+    function removeJob(id) {
+      const updated = savedJobIds.filter(jobId => jobId !== id);
+      localStorage.setItem("savedJobs", JSON.stringify(updated));
+      renderSavedJobs();
+    }
+  
+    function viewJob(id) {
+      localStorage.setItem("selectedJobId", id);
+      window.location.href = "job-details.html";
+    }
+  
+    function renderSavedJobs() {
+      const currentSaved = JSON.parse(localStorage.getItem("savedJobs")) || [];
+      savedJobList.innerHTML = "";
+  
+      const allJobs = getAllJobs(); //  includes default + custom jobs
+  
+      const matchedJobs = allJobs.filter(job => currentSaved.includes(job.id));
+  
+      if (matchedJobs.length === 0) {
+        savedJobList.innerHTML = "<p>No saved jobs found.</p>";
+        return;
+      }
+  
+      matchedJobs.forEach(job => {
+        const jobCard = document.createElement("div");
+        jobCard.className = "job-card";
+        jobCard.innerHTML = `
+          <h3>${job.title}</h3>
+          <p><strong>Company:</strong> ${job.company}</p>
+          <p><strong>Skill:</strong> ${job.skill}</p>
+          <p><strong>Location:</strong> ${job.location}</p>
+          <button onclick="viewJob(${job.id})">View Details</button>
+          <button onclick="removeJob(${job.id})" style="background-color: crimson;">Remove</button>
+        `;
+        savedJobList.appendChild(jobCard);
+      });
+    }
+  
+    document.addEventListener("DOMContentLoaded", renderSavedJobs);
+  </script>
+  
+  
+</body>
+</html>

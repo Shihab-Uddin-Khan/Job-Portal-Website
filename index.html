@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Portal</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="images/logo.png" alt="Job Portal Logo" style="height: 80px;" />
+      <h1 style="margin: 0; font-size: 2.5rem;">Job Portal</h1>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <input type="text" id="searchInput" placeholder="Search jobs..." />
+      <a href="saved.html" class="nav-btn">Saved Jobs</a>
+      <a href="add-job.html" class="post-job-button">Post a Job</a>
+      <a href="my-jobs.html" class="post-job-button">Manage My Jobs</a>
+      <a href="/admin" class="post-job-button">Admin Panel</a>
+      <button onclick="logout()" class="nav-btn" id="logoutBtn" style="display: none;">Logout</button>
+    </div>
+  </nav>
+  
+
+  <!-- job listings -->
+  <main id="jobList">
+    <!-- jobs will be loaded here with js -->
+  </main>
+
+  <script src="js/main.js"></script>
+   <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section about">
+        <img src="images/logo.png" alt="Shomvob Logo" class="footer-logo" />
+        <p>Job Protal aims to be the largest professional networking and job matching platform for the rising force in Bangladesh.</p>
+        <p><strong>Download Job Protal App</strong></p>
+        <a href="#" class="playstore-button">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" />
+        </a>
+      </div>
+  
+      <div class="footer-section links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Impactful Insights</a></li>
+          <li><a href="#">Career</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-section links">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="add-job.html">Job Posting </a></li>
+          <li><a href="my-jobs.html">Recruitment / Hireing</a></li>
+          <li><a href="apply.html">Apply For Jobs</a></li>
+          <li><a href="#">Training & Development</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-section contact">
+        <h3>Get In Touch</h3>
+        <p>📞 +880 01533320035</p>
+        <p>📧 shihabuddin.year2003@gmail.com</p>
+        <p>📍 Shohid Abdul Hamid Hall</p>
+        <h4>Follow Us:</h4>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/shihab.uddin.782884"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+          <a href="https://www.youtube.com/channel/UCZU9T1ceaOgwfLRq7OKFU4Q"><img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" alt="YouTube" /></a>
+          <a href="https://www.linkedin.com/"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" /></a>
+          <a href="https://www.instagram.com/"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" /></a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="footer-bottom">
+        <a href="#">Terms & Conditions</a>
+        <span>Copyright © 2025 All Rights Reserved by Shihab</span>
+        <a href="#">Privacy & Policy</a>
+      </div>
+      
+  </footer>
+    
+</body>
+</html>

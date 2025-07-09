@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Details</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="images/logo.png" alt="Job Portal Logo" style="height: 80px;" />
+      <h1 style="margin: 0; font-size: 2.5rem;">Job Details</h1>
+    </div>
+    <a href="index.html" style="color: white;">← Back to Jobs</a>
+  </nav>
+
+  <main id="jobDetail" class="job-card" style="margin: 20px;">
+    <!-- Job details will be inserted here -->
+  </main>
+
+  <script src="js/jobs-data.js"></script> <!-- default jobs array -->
+  <script>
+    // Helper to get combined jobs
+    function getAllJobs() {
+      const customJobs = JSON.parse(localStorage.getItem("customJobs")) || [];
+      return [...jobs, ...customJobs]; // jobs from jobs-data.js
+    }
+
+    const jobId = parseInt(localStorage.getItem("selectedJobId"));
+    const allJobs = getAllJobs();
+
+    const job = allJobs.find(j => j.id === jobId);
+
+    const container = document.getElementById("jobDetail");
+
+    if (job) {
+      container.innerHTML = `
+        <h2>${job.title}</h2>
+        <p><strong>Company:</strong> ${job.company}</p>
+        <p><strong>Skill:</strong> ${job.skill}</p>
+        <p><strong>Location:</strong> ${job.location}</p>
+        <p><strong>Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <a href="apply.html"><button>Apply Now</button></a>
+      `;
+    } else {
+      container.innerHTML = "<p>⚠️ Job not found.</p>";
+    }
+  </script>
+</body>
+</html>

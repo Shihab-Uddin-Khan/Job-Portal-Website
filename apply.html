@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apply for Job</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="images/logo.png" alt="Job Portal Logo" style="height: 80px;" />
+      <h1 style="margin: 0; font-size: 2.5rem;">Apply Now</h1>
+    </div>
+    <a href="index.html" style="color: white;">← Back to Home</a>
+  </nav>
+
+  <main style="max-width: 600px; margin: 20px auto;">
+    <form id="applyForm" class="job-card" enctype="multipart/form-data">
+      <h2>Application Form</h2>
+
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" required />
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" required />
+
+      <label for="resume">Upload Resume:</label>
+      <input type="file" id="resume" accept=".pdf,.doc,.docx" required />
+
+      <label for="message">Message:</label>
+      <textarea id="message" rows="4" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Submit Application</button>
+    </form>
+    <p id="successMsg" style="color: green; text-align: center;"></p>
+  </main>
+
+  <script>
+    const form = document.getElementById("applyForm");
+    const successMsg = document.getElementById("successMsg");
+  
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+  
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const resumeFile = document.getElementById("resume").files[0];
+      const message = document.getElementById("message").value.trim();
+  
+      if (!name || !email || !resumeFile || !message) {
+        alert("Please fill out all fields.");
+        return;
+      }
+  
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("resume", resumeFile);
+      formData.append("message", message);
+  
+      try {
+        const response = await fetch("http://localhost:5000/api/apply", {
+          method: "POST",
+          body: formData,
+        });
+  
+        const result = await response.json();
+  
+        if (response.ok) {
+          successMsg.textContent = "✅ Application submitted successfully!";
+          form.reset();
+        } else {
+          successMsg.textContent = "❌ Failed: " + result.error;
+        }
+      } catch (error) {
+        console.error("Error submitting:", error);
+        successMsg.textContent = "❌ An error occurred while submitting.";
+      }
+    });
+  </script>
+  
+     
+</body>
+</html>
